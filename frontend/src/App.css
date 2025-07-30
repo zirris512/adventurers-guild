@@ -1,0 +1,93 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.App-nav {
+  display: flex;
+  background-color: #2f718700;
+  justify-content: center;
+  align-items: center;
+  margin:auto;
+  gap: 1rem;
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+ 
+}
+
+.App-nav a{
+  padding: 0.5rem;
+  background-color: #220b38;
+  border-radius: 4px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   color:#5397e4;
+}
+body {
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  background-color: rgb(249, 202, 161);
+  margin:5px;
+  padding: 0rem;
+  color:#211d32;
+}
+
+input, button, select {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  border: 2px solid#f2ac62;
+  color:rgb(178, 209, 235);
+
+}
+
+
+th, tr, td {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  padding: 0.5rem;
+  color:#220b38;
+  border-color: #220b38;
+  border-style:outset;
+}
+
+th {
+  font-size: 1.5rem;
+  color:#0c1944;
+  padding:0.2rem;
+  background-color: rgb(178, 209, 235);
+}
