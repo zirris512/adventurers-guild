@@ -22,4 +22,10 @@ VALUES(@fname_input, @lname_input, @tele_input, @a_rank, @a_status, NOW());
 -- Get all job records.
 SELECT * as allJobs FROM Jobs;
 
+-- Insert a new job record.
+INSERT INTO Jobs(job_opener_first_name, job_opener_last_name, job_rank, job_location, job_still_open, job_point_value, completion_payout)
+VALUES(@job_opener_first_name_input, @job_opener_last_name_input,
+@job_rank_input, @job_location_input, @job_still_open_input, 
+@job_point_value_input, @completion_payout_input
+);
 

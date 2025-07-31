@@ -3,7 +3,7 @@ import React from 'react';
 function AdventurerForm() {
   return (
     <form>
-      <h3>Adventurer Form (Mockup)</h3>
+      <h3>Add New Adventurer Form (Mockup)</h3>
       <label>
         First Name:
         <input 

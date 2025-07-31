@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AdventurerForm from '../components/AdventurerForm';
 
 function AdventurerPage() {
   const [showForm, setShowForm] = useState(false);
-
+  const navigate = useNavigate();
   const adventurers = [
     {
       adventurer_ID: 1,
@@ -37,7 +38,9 @@ function AdventurerPage() {
   return (
     <div>
       <h2>Adventurers</h2>
-
+      <p>CRUD Operations: Create, Read</p>
+  
+{/* Button Toggle for AdventurerForm to add a new adventurer. */}
       <button onClick={() => setShowForm(!showForm)}>
         {showForm ? 'Hide Form' : 'Add New Adventurer'}
       </button>
@@ -47,25 +50,27 @@ function AdventurerPage() {
       <table>
         <thead>
           <tr>
-            <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Phone</th>
             <th>Rank</th>
             <th>Active?</th>
             <th>Last Update</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {adventurers.map((a, index) => (
             <tr key={index}>
-              <td>{a.adventurer_ID}</td>
               <td>{a.first_name}</td>
               <td>{a.last_name}</td>
               <td>{a.universal_telephone_number}</td>
               <td>{a.adventurer_rank}</td>
               <td>{a.adventurer_is_active ? 'Yes' : 'No'}</td>
               <td>{a.a_last_update}</td>
+              <td><button onClick={() => navigate(`/adventurerJob/${a.adventurer_ID}`)}>
+                  View All Jobs
+                </button> </td>
             </tr>
           ))}
         </tbody>
