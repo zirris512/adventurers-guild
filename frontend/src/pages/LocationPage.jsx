@@ -30,6 +30,7 @@ function LocationPage() {
         <h2>Relevant Locations</h2>
         <p>CRUD Operations: Create, Read</p>
 
+{/* Button Toggle for LocationForm to add a new Location. */}
 
         <button onClick={() => setShowForm(!showForm)}>
         {showForm ? 'Hide Form' : 'Add New Location'}

@@ -28,7 +28,7 @@ function App() {
           <Route path = "/location" element = {<LocationPage/>}></Route>
           <Route path = "/rank" element = {<RankPage/>}></Route>
           <Route path = "/job" element = {<JobPage/>}></Route>
-          <Route path = "/adventurerJob" element = {<AdventurerJobPage/>}></Route>
+          <Route path = "/adventurerJob/:id?" element = {<AdventurerJobPage/>}></Route>
         </Routes>
     </div>
     <footer>© 2025 Group24</footer>
