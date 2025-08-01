@@ -19,6 +19,7 @@ function AdventurerJobPage() {
       adventurer_ID: 1,
       adventurer: 'Aria Thorne',
       job_ID: 1,
+      job_opener: 'Lysa Fairwind',
       adventurer_completed_job: 1,
       adventurer_currently_tracking_job: 0,
       aj_last_update: '2025-07-31 18:57:48',
@@ -28,6 +29,7 @@ function AdventurerJobPage() {
       adventurer_ID: 1,
       adventurer: 'Aria Thorne',
       job_ID: 4,
+      job_opener: 'Eldon Stoneshaper',
       adventurer_completed_job: 1,
       adventurer_currently_tracking_job: 0,
       aj_last_update: '2025-07-31 18:57:48',
@@ -37,6 +39,7 @@ function AdventurerJobPage() {
       adventurer_ID: 2,
       adventurer: 'Bren Stoneheart',
       job_ID: 2,
+      job_opener: 'Torin Blacksteel',
       adventurer_completed_job: 1,
       adventurer_currently_tracking_job: 0,
       aj_last_update: '2025-07-31 18:57:48',
@@ -46,6 +49,7 @@ function AdventurerJobPage() {
       adventurer_ID: 3,
       adventurer: 'Cyril Duskblade',
       job_ID: 3,
+      job_opener: 'Ilya Brightstar',
       adventurer_completed_job: 1,
       adventurer_currently_tracking_job: 0,
       aj_last_update: '2025-07-31 18:57:48',
@@ -99,7 +103,7 @@ function AdventurerJobPage() {
         <thead>
           <tr>
             <th>Adventurer</th>
-            <th>Job ID</th>
+            <th>Job Opener</th>
             <th>Completed?</th>
             <th>Tracking?</th>
             <th>Last Update</th>
@@ -111,7 +115,7 @@ function AdventurerJobPage() {
           {aj_table.map((a, index) => (
             <tr key={index}>
               <td>{a.adventurer}</td>
-              <td>{a.job_ID}</td>
+              <td>{a.job_opener}</td>
               <td>{a.adventurer_completed_job == 1 ? 'Yes' : 'No'}</td>
               <td>{a.adventurer_currently_tracking_job == 1 ? 'Yes' : 'No'}</td>
               <td>{a.aj_last_update}</td>
