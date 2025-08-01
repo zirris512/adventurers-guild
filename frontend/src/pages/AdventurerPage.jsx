@@ -13,7 +13,7 @@ function AdventurerPage() {
       universal_telephone_number: '104-121-2428',
       adventurer_rank: 'F',
       adventurer_is_active: true,
-      a_last_update: '2025-07-23 20:11:14'
+      a_last_update: '2025-07-23 20:11:14',
     },
     {
       adventurer_ID: 2,
@@ -22,7 +22,7 @@ function AdventurerPage() {
       universal_telephone_number: '916-091-5393',
       adventurer_rank: 'F',
       adventurer_is_active: true,
-      a_last_update: '2025-07-24 20:11:14'
+      a_last_update: '2025-07-24 20:11:14',
     },
     {
       adventurer_ID: 3,
@@ -31,7 +31,7 @@ function AdventurerPage() {
       universal_telephone_number: '235-253-8300',
       adventurer_rank: 'F',
       adventurer_is_active: true,
-      a_last_update: '2025-07-26 20:11:14'
+      a_last_update: '2025-07-26 20:11:14',
     },
   ];
 
@@ -39,8 +39,8 @@ function AdventurerPage() {
     <div>
       <h2>Adventurers</h2>
       <p>CRUD Operations: Create, Read</p>
-  
-{/* Button Toggle for AdventurerForm to add a new adventurer. */}
+
+      {/* Button Toggle for AdventurerForm to add a new adventurer. */}
       <button onClick={() => setShowForm(!showForm)}>
         {showForm ? 'Hide Form' : 'Add New Adventurer'}
       </button>
@@ -68,9 +68,13 @@ function AdventurerPage() {
               <td>{a.adventurer_rank}</td>
               <td>{a.adventurer_is_active ? 'Yes' : 'No'}</td>
               <td>{a.a_last_update}</td>
-              <td><button onClick={() => navigate(`/adventurerJob/${a.adventurer_ID}`)}>
+              <td>
+                <button
+                  onClick={() => navigate(`/adventurerJob/${a.adventurer_ID}`)}
+                >
                   View All Jobs
-                </button> </td>
+                </button>{' '}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -80,4 +84,3 @@ function AdventurerPage() {
 }
 
 export default AdventurerPage;
-

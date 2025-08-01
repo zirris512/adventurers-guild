@@ -46,48 +46,96 @@
   background-color: #2f718700;
   justify-content: center;
   align-items: center;
-  margin:auto;
+  margin: auto;
   gap: 1rem;
   padding: 1rem;
   display: flex;
   gap: 1rem;
- 
 }
 
-.App-nav a{
+.App-nav a {
   padding: 0.5rem;
   background-color: #220b38;
   border-radius: 4px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-   color:#5397e4;
+  color: #5397e4;
 }
 body {
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   background-color: rgb(249, 202, 161);
-  margin:5px;
+  margin: 5px;
   padding: 0rem;
-  color:#211d32;
+  color: #211d32;
 }
 
-input, button, select {
+input,
+button,
+select {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   border: 2px solid#f2ac62;
-  color:rgb(178, 209, 235);
-
+  color: rgb(178, 209, 235);
 }
 
-
-th, tr, td {
+th,
+tr,
+td {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   padding: 0.5rem;
-  color:#220b38;
+  color: #220b38;
   border-color: #220b38;
-  border-style:outset;
+  border-style: outset;
 }
 
 th {
   font-size: 1.5rem;
-  color:#0c1944;
-  padding:0.2rem;
+  color: #0c1944;
+  padding: 0.2rem;
   background-color: rgb(178, 209, 235);
+}
+
+/* src/components/Modal.css */
+
+.overlay {
+  position: fixed; /* Stays in the same position even when scrolling */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensures it's on top of other content */
+}
+
+.content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.actions {
+  margin-top: 20px;
+}
+
+.cancel-btn,
+.confirm-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+  color: #333;
+}
+
+.confirm-btn {
+  background-color: #e74c3c; /* A red color for "Delete" */
+  color: white;
 }

@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import JobForm from '../components/JobForm.jsx';
 
 function JobPage() {
   const [showForm, setShowForm] = useState(false);
-  const allJobs = [ 
-{
+  const allJobs = [
+    {
       job_ID: 1,
       job_opener_first_name: 'Lysa',
       job_opener_last_name: 'Fairwind',
@@ -14,7 +14,7 @@ function JobPage() {
       job_created_at: '2025-07-01',
       j_last_update: '2025-07-01',
       job_point_value: 5,
-      completion_payout: '25 gold'
+      completion_payout: '25 gold',
     },
     {
       job_ID: 2,
@@ -26,7 +26,7 @@ function JobPage() {
       job_created_at: '2025-07-02',
       j_last_update: '2025-07-02',
       job_point_value: 15,
-      completion_payout: '45 gold'
+      completion_payout: '45 gold',
     },
     {
       job_ID: 3,
@@ -38,7 +38,7 @@ function JobPage() {
       job_created_at: '2025-07-03',
       j_last_update: '2025-07-03',
       job_point_value: 10,
-      completion_payout: '120 gold'
+      completion_payout: '120 gold',
     },
     {
       job_ID: 4,
@@ -50,21 +50,21 @@ function JobPage() {
       job_created_at: '2025-07-04',
       j_last_update: '2025-07-04',
       job_point_value: 5,
-      completion_payout: '30 gold'
-    }
+      completion_payout: '30 gold',
+    },
   ];
 
   return (
     <div>
       <h2>Jobs</h2>
       <p>CRUD Operations: Create, Read</p>
-      
+
       {/* Button Toggle for JobForm to add a new job. */}
       <button onClick={() => setShowForm(!showForm)}>
         {showForm ? 'Hide Form' : 'Add New Job'}
       </button>
 
-      {showForm && <JobForm/>}
+      {showForm && <JobForm />}
 
       <table>
         <thead>
@@ -82,7 +82,9 @@ function JobPage() {
         <tbody>
           {allJobs.map((job) => (
             <tr key={job.job_ID}>
-              <td>{job.job_opener_first_name} {job.job_opener_last_name}</td>
+              <td>
+                {job.job_opener_first_name} {job.job_opener_last_name}
+              </td>
               <td>{job.job_rank}</td>
               <td>{job.job_location}</td>
               <td>{job.job_still_open ? 'Open' : 'Closed'}</td>
