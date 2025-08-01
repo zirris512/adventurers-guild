@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AdventurerJobEditForm from '../components/AdventurerJobEditForm';
+import AdventurerJobCreateForm from '../components/AdventurerJobCreateForm';
 import DeleteConfirm from '../components/DeleteConfirm';
 import { useParams } from 'react-router-dom';
 
@@ -7,7 +8,8 @@ function AdventurerJobPage() {
   //If we call AdventurerJobPage from AdventurerPage
   //Otherwise we need a dropdown list of adventurer names
   const { id: paramId } = useParams();
-  const [showForm, setShowForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [showCreateForm, setShowCreateForm] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [isTracking, setIsTracking] = useState(false);
   const [isPaymentTransferred, setIsPaymentTransferred] = useState(false);
@@ -63,7 +65,7 @@ function AdventurerJobPage() {
     setIsCompleted(adventurer_data.adventurer_completed_job);
     setIsTracking(adventurer_data.adventurer_currently_tracking_job);
     setIsPaymentTransferred(adventurer_data.completion_payment_transfered);
-    setShowForm(true);
+    setShowEditForm(true);
   };
 
   const handleOpen = () => {
@@ -78,13 +80,20 @@ function AdventurerJobPage() {
     <>
       <h2>Adventurer Job Page</h2>
 
-      {showForm && (
+      {showEditForm && (
         <AdventurerJobEditForm
-          setShowForm={setShowForm}
+          setShowEditForm={setShowEditForm}
           isCompleted={isCompleted}
           isTracking={isTracking}
           isPaymentTransferred={isPaymentTransferred}
         />
+      )}
+      {!showCreateForm ? (
+        <button onClick={() => setShowCreateForm(true)}>
+          Create Adventurer Job
+        </button>
+      ) : (
+        <AdventurerJobCreateForm setShowCreateForm={setShowCreateForm} />
       )}
       <table>
         <thead>

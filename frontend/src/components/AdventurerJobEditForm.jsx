@@ -1,12 +1,12 @@
-function AdventurerJobEditForm({
-  setShowForm,
+function AdventurerJobCreateForm({
+  setShowEditForm,
   isCompleted,
   isTracking,
   isPaymentTransferred,
 }) {
   const handleSubmit = (e) => {
     e.preventDefault();
-    setShowForm(false);
+    setShowEditForm(false);
   };
 
   return (
@@ -42,4 +42,4 @@ function AdventurerJobEditForm({
   );
 }
 
-export default AdventurerJobEditForm;
+export default AdventurerJobCreateForm;
