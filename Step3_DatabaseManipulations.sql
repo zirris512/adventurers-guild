@@ -72,7 +72,22 @@ SELECT adventurers.first_name,
 FROM adventurer_jobs
     JOIN adventurers ON adventurer_jobs.adventurer_ID = adventurers.adventurer_ID;
 -- Create a job tied to an adventurer by adventurer_ID and job_ID
-INSERT -- Update adventurer jobs by adventurer_ID and jobs_ID
+INSERT INTO adventurer_jobs (
+        adventurer_ID,
+        job_ID,
+        adventurer_completed_job,
+        adventurer_currently_tracking_job,
+        aj_last_update,
+        completion_payment_transfered
+    ) VALUE (
+        @adventurer_ID_input,
+        @job_ID_input,
+        @adventurer_completed_job_input,
+        @adventurer_currently_tracking_job_input,
+        @aj_last_update_input,
+        @completion_payment_transfered_input
+    );
+-- Update adventurer jobs by adventurer_ID and jobs_ID
 UPDATE adventurer_jobs
 SET adventurer_completed_job = @adventurer_completed_job_input,
     adventurer_currently_tracking_job = @adventurer_currently_tracking_job_input,
