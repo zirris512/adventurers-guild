@@ -82,10 +82,10 @@ INSERT INTO adventurer_jobs (
     ) VALUE (
         @adventurer_ID_input,
         @job_ID_input,
-        @adventurer_completed_job_input,
-        @adventurer_currently_tracking_job_input,
-        @aj_last_update_input,
-        @completion_payment_transfered_input
+        0,
+        1,
+        NOW(),
+        0
     );
 -- Update adventurer jobs by adventurer_ID and jobs_ID
 UPDATE adventurer_jobs
