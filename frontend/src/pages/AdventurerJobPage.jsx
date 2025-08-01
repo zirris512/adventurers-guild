@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import AdventurerJobEditForm from '../components/AdventurerJobEditForm';
 import { useParams } from 'react-router-dom';
 
 function AdventurerJobPage() {
-  const navigate = useNavigate();
   //If we call AdventurerJobPage from AdventurerPage
   //Otherwise we need a dropdown list of adventurer names
   const { id: paramId } = useParams();
+  const [showForm, setShowForm] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
+  const [isTracking, setIsTracking] = useState(false);
+  const [isPaymentTransferred, setIsPaymentTransferred] = useState(false);
   const [aj_table, set_aj_table] = useState([
     {
       adventurer_ID: 1,
@@ -54,9 +57,25 @@ function AdventurerJobPage() {
     }
   }, [paramId]);
 
+  const handleEditSubmit = (adventurer_data) => {
+    setIsCompleted(adventurer_data.adventurer_completed_job);
+    setIsTracking(adventurer_data.adventurer_currently_tracking_job);
+    setIsPaymentTransferred(adventurer_data.completion_payment_transfered);
+    setShowForm(true);
+  };
+
   return (
     <>
       <h2>Adventurer Job Page</h2>
+
+      {showForm && (
+        <AdventurerJobEditForm
+          setShowForm={setShowForm}
+          isCompleted={isCompleted}
+          isTracking={isTracking}
+          isPaymentTransferred={isPaymentTransferred}
+        />
+      )}
       <table>
         <thead>
           <tr>
@@ -79,11 +98,8 @@ function AdventurerJobPage() {
               <td>{a.aj_last_update}</td>
               <td>{a.completion_payment_transfered == 1 ? 'Yes' : 'No'}</td>
               <td>
-                <button
-                  onClick={() => navigate(`/adventurerJob/${a.adventurer_ID}`)}
-                >
-                  View All Jobs
-                </button>{' '}
+                <button onClick={() => handleEditSubmit(a)}>Edit</button>
+                <button>Delete</button>
               </td>
             </tr>
           ))}
