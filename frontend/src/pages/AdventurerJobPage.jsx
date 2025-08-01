@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AdventurerJobEditForm from '../components/AdventurerJobEditForm';
+import DeleteConfirm from '../components/DeleteConfirm';
 import { useParams } from 'react-router-dom';
 
 function AdventurerJobPage() {
@@ -10,6 +11,7 @@ function AdventurerJobPage() {
   const [isCompleted, setIsCompleted] = useState(false);
   const [isTracking, setIsTracking] = useState(false);
   const [isPaymentTransferred, setIsPaymentTransferred] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const [aj_table, set_aj_table] = useState([
     {
       adventurer_ID: 1,
@@ -64,6 +66,14 @@ function AdventurerJobPage() {
     setShowForm(true);
   };
 
+  const handleOpen = () => {
+    setShowConfirm(true);
+  };
+
+  const handleClose = () => {
+    setShowConfirm(false);
+  };
+
   return (
     <>
       <h2>Adventurer Job Page</h2>
@@ -99,12 +109,17 @@ function AdventurerJobPage() {
               <td>{a.completion_payment_transfered == 1 ? 'Yes' : 'No'}</td>
               <td>
                 <button onClick={() => handleEditSubmit(a)}>Edit</button>
-                <button>Delete</button>
+                <button onClick={handleOpen}>Delete</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <DeleteConfirm
+        isOpen={showConfirm}
+        onClose={handleClose}
+        onConfirm={handleClose}
+      />
     </>
   );
 }
