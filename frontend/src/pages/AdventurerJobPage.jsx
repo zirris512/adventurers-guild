@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import AdventurerJobEditForm from '../components/AdventurerJobEditForm';
 import AdventurerJobCreateForm from '../components/AdventurerJobCreateForm';
 import DeleteConfirm from '../components/DeleteConfirm';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
-function AdventurerJobPage() {
+function AdventurerJobPage({backendURL}) {
   //If we call AdventurerJobPage from AdventurerPage
   //Otherwise we need a dropdown list of adventurer names
+  const navigate = useNavigate();
   const { id: paramId } = useParams();
   const [showEditForm, setShowEditForm] = useState(false);
   const [showCreateForm, setShowCreateForm] = useState(false);
@@ -14,56 +15,45 @@ function AdventurerJobPage() {
   const [isTracking, setIsTracking] = useState(false);
   const [isPaymentTransferred, setIsPaymentTransferred] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-  const [aj_table, set_aj_table] = useState([
-    {
-      adventurer_ID: 1,
-      adventurer: 'Aria Thorne',
-      job_ID: 1,
-      job_opener: 'Lysa Fairwind',
-      adventurer_completed_job: 1,
-      adventurer_currently_tracking_job: 0,
-      aj_last_update: '2025-07-31 18:57:48',
-      completion_payment_transfered: 1,
-    },
-    {
-      adventurer_ID: 1,
-      adventurer: 'Aria Thorne',
-      job_ID: 4,
-      job_opener: 'Eldon Stoneshaper',
-      adventurer_completed_job: 1,
-      adventurer_currently_tracking_job: 0,
-      aj_last_update: '2025-07-31 18:57:48',
-      completion_payment_transfered: 1,
-    },
-    {
-      adventurer_ID: 2,
-      adventurer: 'Bren Stoneheart',
-      job_ID: 2,
-      job_opener: 'Torin Blacksteel',
-      adventurer_completed_job: 1,
-      adventurer_currently_tracking_job: 0,
-      aj_last_update: '2025-07-31 18:57:48',
-      completion_payment_transfered: 1,
-    },
-    {
-      adventurer_ID: 3,
-      adventurer: 'Cyril Duskblade',
-      job_ID: 3,
-      job_opener: 'Ilya Brightstar',
-      adventurer_completed_job: 1,
-      adventurer_currently_tracking_job: 0,
-      aj_last_update: '2025-07-31 18:57:48',
-      completion_payment_transfered: 1,
-    },
-  ]);
+  const [aj_table, set_aj_table] = useState([]);
+  const [full_aj_table, set_full_aj_table] = useState([]);
 
-  useEffect(() => {
-    if (paramId) {
-      set_aj_table((prevData) =>
-        prevData.filter((data) => paramId == data.adventurer_ID),
-      );
+  const getData = async function() {
+    try{
+      //Get reqeust for adventure's jobs query.
+      const response = await fetch(backendURL + '/adventurerJobs');
+
+      //Convert response into JSON format
+      const {aj_table} = await response.json();
+
+      //Update job state with response data.
+      set_full_aj_table(aj_table);
+      return aj_table;
+
+    } catch (error){
+      //IF  API call fails
+      console.log(error);
+      return [];
     }
-  }, [paramId]);
+  };
+  
+  // Load data onto page
+  useEffect(() => {
+    getData();
+  }, []);
+
+  //Use paramId to filter full datatable to only selected adventurers.
+useEffect(() => {
+  if (paramId) {
+    // If param is present, load filtered data for storage and load viewing table (aj_table).
+      const filtered_data = full_aj_table.filter(data => Number(data.adventurer_ID) === Number(paramId));
+      set_aj_table(filtered_data);
+    } else {
+      // if no param, load full data table into viewing table.
+      set_aj_table(full_aj_table);
+    }
+}, [paramId, full_aj_table]);
+
 
   const handleEditSubmit = (adventurer_data) => {
     setIsCompleted(adventurer_data.adventurer_completed_job);
@@ -78,6 +68,14 @@ function AdventurerJobPage() {
 
   const handleClose = () => {
     setShowConfirm(false);
+  };
+
+  //Reload the page to the full data set.
+  //Refetch data and then reload. Can be used after edit or delete
+  const dataReload = async () => {
+    navigate('/adventurerJob/');
+    const freshData = await getData();
+    set_aj_table(freshData);
   };
 
   return (
@@ -99,6 +97,7 @@ function AdventurerJobPage() {
       ) : (
         <AdventurerJobCreateForm setShowCreateForm={setShowCreateForm} />
       )}
+      <button onClick={dataReload}>Reload All Adventurers</button>
       <table>
         <thead>
           <tr>
@@ -112,13 +111,13 @@ function AdventurerJobPage() {
           </tr>
         </thead>
         <tbody>
-          {aj_table.map((a, index) => (
-            <tr key={index}>
+          {aj_table.map((a) => (
+            <tr key={a.adventurer_ID + '-' + a.job_ID}>
               <td>{a.adventurer}</td>
               <td>{a.job_opener}</td>
               <td>{a.adventurer_completed_job == 1 ? 'Yes' : 'No'}</td>
               <td>{a.adventurer_currently_tracking_job == 1 ? 'Yes' : 'No'}</td>
-              <td>{a.aj_last_update}</td>
+              <td>{new Date(a.aj_last_update).toLocaleString()}</td>
               <td>{a.completion_payment_transfered == 1 ? 'Yes' : 'No'}</td>
               <td>
                 <button onClick={() => handleEditSubmit(a)}>Edit</button>

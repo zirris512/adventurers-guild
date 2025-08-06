@@ -62,17 +62,20 @@ VALUES(
         @completion_payout_input
     );
 -- Get all adventurer jobs and names
-SELECT adventurers.first_name,
-    adventurers.last_name,
-    jobs.job_opener_first_name,
-    jobs.job_opener_last_name,
-    adventurer_jobs.adventurer_completed_job,
-    adventurer_jobs.adventurer_currently_tracking_job,
-    adventurer_jobs.aj_last_update,
-    adventurer_jobs.completion_payment_transfered
-FROM adventurer_jobs
-    JOIN adventurers ON adventurer_jobs.adventurer_ID = adventurers.adventurer_ID
-    JOIN jobs ON jobs.job_ID = adventurer_jobs.job_ID;
+SELECT 
+    CONCAT(Adventurers.first_name, ' ', Adventurers.last_name) AS adventurer,
+    CONCAT(Jobs.job_opener_first_name, ' ', Jobs.job_opener_last_name) AS job_opener,
+    Adventurer_Jobs.adventurer_completed_job,
+    Adventurer_Jobs.adventurer_currently_tracking_job,
+    Adventurer_Jobs.aj_last_update,
+    Adventurer_Jobs.completion_payment_transfered,
+    Adventurer_Jobs.adventurer_ID,
+    Jobs.job_ID
+FROM Adventurer_Jobs
+    JOIN Adventurers ON Adventurer_Jobs.adventurer_ID = Adventurers.adventurer_ID
+    JOIN Jobs ON Jobs.job_ID = Adventurer_Jobs.job_ID;
+
+
 -- Get a single adventurer and all jobs
 SELECT adventurers.first_name,
     adventurers.last_name,

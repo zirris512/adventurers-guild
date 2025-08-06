@@ -1,20 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-function RankPage() {
-  // Static rank data
-  const rank = [
-    { rank_ID: 'F', rank_threshold: 0 },
-    { rank_ID: 'E', rank_threshold: 100 },
-    { rank_ID: 'D', rank_threshold: 200 },
-    { rank_ID: 'C', rank_threshold: 400 },
-    { rank_ID: 'B', rank_threshold: 800 },
-    { rank_ID: 'A', rank_threshold: 1600 },
-  ];
+function RankPage({backendURL}) {
+  const [allRanks, setRanks] = useState([]);
+  
+  const getData = async function() {
+    try{
+      //Get reqeust for Ranks query.
+      const response = await fetch(backendURL + '/ranks');
+
+      //Convert response into JSON format
+      const {allRanks} = await response.json();
+
+      //Update job state with response data.
+      setRanks(allRanks);
+
+    } catch (error){
+      //IF  API call fails
+      console.log(error);
+    }
+  };
+  
+  // Load data onto page
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div>
       <h2>Rank Thresholds</h2>
-      <p>CRUD Operations: READ</p>
       <table>
         <thead>
           <tr>
@@ -23,7 +36,7 @@ function RankPage() {
           </tr>
         </thead>
         <tbody>
-          {rank.map((rank) => (
+          {allRanks.map((rank) => (
             <tr key={rank.rank_ID}>
               <td>{rank.rank_ID}</td>
               <td>{rank.rank_threshold}</td>
