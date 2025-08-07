@@ -1,34 +1,43 @@
+/*-- Citation for the following code: Nathaniel Dziuba
+-- Date: 2025-08-05
+-- Adapted from Exploration web app technology.
+-- AI was used to help review the code for syntax errors after an initial implementation and for general referencing.
+-- Source URL: https://m365.cloud.microsoft
+-- If AI tools were used:
+-- AI assistance was used to confirm integrity of the code and ask clarifying questions. 
+ */ 
 import React, { useEffect, useState } from 'react';
 import LocationForm from '../components/LocationForm';
 
-function LocationPage() {
+function LocationPage({backendURL}) {
+  const [showForm, setShowForm] = useState(false);
+  const [allLocations, setLocations] = useState([]);
 
-    const [showForm, setShowForm] = useState(false);
-    const locations = [
-        {
-        solar_system: 'Epsilon Eridani',
-        celestial_body_name: 'Epsilon III',
-        target_latitude: '45.678N',
-        target_longitude: '120.456E',
-        },
-        {
-        solar_system: 'Alpha Centauri',
-        celestial_body_name: 'Alpha B2',
-        target_latitude: '33.210S',
-        target_longitude: '75.900W',
-        },
-        {
-        solar_system: 'Sol',
-        celestial_body_name: 'Mars',
-        target_latitude: '15.000N',
-        target_longitude: '100.000E',
-        },
-    ];
+  const getData = async function() {
+    try{
+      //Get reqeust for jobs query.
+      const response = await fetch(backendURL + '/locations');
+
+      //Convert response into JSON format
+      const {allLocations} = await response.json();
+
+      //Update job state with response data.
+      setLocations(allLocations);
+
+    } catch (error){
+      //IF  API call fails
+      console.log(error);
+    }
+  };
+
+  // Load data onto page
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div>
         <h2>Relevant Locations</h2>
-        <p>CRUD Operations: Create, Read</p>
 
 {/* Button Toggle for LocationForm to add a new Location. */}
 
@@ -36,7 +45,7 @@ function LocationPage() {
         {showForm ? 'Hide Form' : 'Add New Location'}
         </button>
 
-        {showForm && <LocationForm />}
+        {showForm && <LocationForm backendURL = {backendURL} refreshLocations = {getData} />}
 
 
       <table>
@@ -49,8 +58,8 @@ function LocationPage() {
           </tr>
         </thead>
         <tbody>
-          {locations.map((loc, index) => (
-            <tr key={index}>
+          {allLocations.map((loc) => (
+            <tr key={loc.location_id}>
               <td>{loc.solar_system}</td>
               <td>{loc.celestial_body_name}</td>
               <td>{loc.target_latitude}</td>

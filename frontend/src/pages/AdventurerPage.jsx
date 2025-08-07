@@ -1,45 +1,47 @@
-import React, { useState } from 'react';
+/*-- Citation for the following code: Nathaniel Dziuba
+-- Date: 2025-08-05
+-- Adapted from Exploration web app technology.
+-- AI was used to help review the code for syntax errors after an initial implementation. It was also used to troubleshoot and assisnt in creating the
+-- button toggle for the different forms.
+-- Source URL: https://m365.cloud.microsoft
+-- If AI tools were used:
+-- AI assistance was used to confirm integrity of the code and ask clarifying questions. It was also used to help troubleshoot and assist in creating
+-- the button toggle used in the forms. 
+ */
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdventurerForm from '../components/AdventurerForm';
 
-function AdventurerPage() {
+function AdventurerPage({backendURL}) {
   const [showForm, setShowForm] = useState(false);
   const navigate = useNavigate();
-  const adventurers = [
-    {
-      adventurer_ID: 1,
-      first_name: 'Aria',
-      last_name: 'Thorne',
-      universal_telephone_number: '104-121-2428',
-      adventurer_rank: 'F',
-      adventurer_is_active: true,
-      a_last_update: '2025-07-23 20:11:14',
-    },
-    {
-      adventurer_ID: 2,
-      first_name: 'Bren',
-      last_name: 'Stoneheart',
-      universal_telephone_number: '916-091-5393',
-      adventurer_rank: 'F',
-      adventurer_is_active: true,
-      a_last_update: '2025-07-24 20:11:14',
-    },
-    {
-      adventurer_ID: 3,
-      first_name: 'Cyril',
-      last_name: 'Duskblade',
-      universal_telephone_number: '235-253-8300',
-      adventurer_rank: 'F',
-      adventurer_is_active: true,
-      a_last_update: '2025-07-26 20:11:14',
-    },
-  ];
+  const [allAdvens, setAdvens] = useState([]);
+
+  const getData = async function() {
+    try{
+      //Get reqeust for Adventures query.
+      const response = await fetch(backendURL + '/adventurers');
+
+      //Convert response into JSON format
+      const {allAdvens} = await response.json();
+
+      //Update job state with response data.
+      setAdvens(allAdvens);
+
+    } catch (error){
+      //IF  API call fails
+      console.log(error);
+    }
+  };
+  
+  // Load data onto page
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div>
       <h2>Adventurers</h2>
-      <p>CRUD Operations: Create, Read</p>
-
       {/* Button Toggle for AdventurerForm to add a new adventurer. */}
       <button onClick={() => setShowForm(!showForm)}>
         {showForm ? 'Hide Form' : 'Add New Adventurer'}
@@ -60,14 +62,14 @@ function AdventurerPage() {
           </tr>
         </thead>
         <tbody>
-          {adventurers.map((a, index) => (
-            <tr key={index}>
+          {allAdvens.map((a) => (
+            <tr key={a.adventurer_ID}>
               <td>{a.first_name}</td>
               <td>{a.last_name}</td>
               <td>{a.universal_telephone_number}</td>
               <td>{a.adventurer_rank}</td>
               <td>{a.adventurer_is_active ? 'Yes' : 'No'}</td>
-              <td>{a.a_last_update}</td>
+              <td>{new Date(a.a_last_update).toLocaleString()}</td>
               <td>
                 <button
                   onClick={() => navigate(`/adventurerJob/${a.adventurer_ID}`)}

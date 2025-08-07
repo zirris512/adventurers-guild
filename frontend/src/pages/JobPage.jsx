@@ -1,63 +1,45 @@
-import React, { useState } from 'react';
+/*-- Citation for the following code: Nathaniel Dziuba
+-- Date: 2025-08-05
+-- Adapted from Exploration web app technology.
+-- AI was used to help review the code for syntax errors after an initial implementation and for general referencing.
+-- Source URL: https://m365.cloud.microsoft
+-- If AI tools were used:
+-- AI assistance was used to confirm integrity of the code and ask clarifying questions. 
+ */ 
+import React, { useState, useEffect } from 'react';
 import JobForm from '../components/JobForm.jsx';
 
-function JobPage() {
+
+function JobPage({backendURL}) {
   const [showForm, setShowForm] = useState(false);
-  const allJobs = [
-    {
-      job_ID: 1,
-      job_opener_first_name: 'Lysa',
-      job_opener_last_name: 'Fairwind',
-      job_rank: 'F',
-      job_location: 1,
-      job_still_open: true,
-      job_created_at: '2025-07-01',
-      j_last_update: '2025-07-01',
-      job_point_value: 5,
-      completion_payout: '25 gold',
-    },
-    {
-      job_ID: 2,
-      job_opener_first_name: 'Torin',
-      job_opener_last_name: 'Blacksteel',
-      job_rank: 'F',
-      job_location: 2,
-      job_still_open: true,
-      job_created_at: '2025-07-02',
-      j_last_update: '2025-07-02',
-      job_point_value: 15,
-      completion_payout: '45 gold',
-    },
-    {
-      job_ID: 3,
-      job_opener_first_name: 'Ilya',
-      job_opener_last_name: 'Brightstar',
-      job_rank: 'F',
-      job_location: 3,
-      job_still_open: false,
-      job_created_at: '2025-07-03',
-      j_last_update: '2025-07-03',
-      job_point_value: 10,
-      completion_payout: '120 gold',
-    },
-    {
-      job_ID: 4,
-      job_opener_first_name: 'Eldon',
-      job_opener_last_name: 'Stoneshaper',
-      job_rank: 'F',
-      job_location: 1,
-      job_still_open: false,
-      job_created_at: '2025-07-04',
-      j_last_update: '2025-07-04',
-      job_point_value: 5,
-      completion_payout: '30 gold',
-    },
-  ];
+  const [allJobs, setJobs] = useState([]);
+
+  const getData = async function() {
+    try{
+      //Get reqeust for jobs query.
+      const response = await fetch(backendURL + '/jobs');
+
+      //Convert response into JSON format
+      const {allJobs} = await response.json();
+
+      //Update job state with response data.
+      setJobs(allJobs);
+
+    } catch (error){
+      //IF  API call fails
+      console.log(error);
+    }
+  };
+
+  // Load data onto page
+  useEffect(() => {
+    getData();
+  }, []);
+
 
   return (
     <div>
       <h2>Jobs</h2>
-      <p>CRUD Operations: Create, Read</p>
 
       {/* Button Toggle for JobForm to add a new job. */}
       <button onClick={() => setShowForm(!showForm)}>
@@ -88,8 +70,8 @@ function JobPage() {
               <td>{job.job_rank}</td>
               <td>{job.job_location}</td>
               <td>{job.job_still_open ? 'Open' : 'Closed'}</td>
-              <td>{job.job_created_at}</td>
-              <td>{job.j_last_update}</td>
+              <td>{new Date(job.job_created_at).toLocaleString()}</td>
+              <td>{new Date(job.j_last_update).toLocaleString()}</td>
               <td>{job.job_point_value}</td>
               <td>{job.completion_payout}</td>
             </tr>
