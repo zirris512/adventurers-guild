@@ -19,6 +19,10 @@ VALUES(
         @target_latitude_input,
         @target_longitude_input
     );
+-- Delete a location by its location_ID
+DELETE FROM Locations
+WHERE location_ID = @selected_location_ID;
+
 -- Get all adventurers recorded locations.
 SELECT *
 FROM Adventurers;
@@ -39,6 +43,14 @@ VALUES(
         @a_status,
         NOW()
     );
+-- Update the adventurer status and rank
+UPDATE Adventurers
+SET 
+    adventurer_is_active = @adventurer_is_active_input,
+    adventurer_rank = @adventurer_rank_input,
+    a_last_update = NOW()
+WHERE 
+    adventurer_ID = @adventurer_ID_input;
 -- Get all job records.
 SELECT *
 FROM Jobs;
@@ -61,6 +73,13 @@ VALUES(
         @job_point_value_input,
         @completion_payout_input
     );
+-- Update the job status and last update.
+UPDATE Jobs
+SET 
+    job_still_open = @job_still_open_input,
+    j_last_update = NOW()
+WHERE 
+    job_ID = @job_ID_input;
 -- Get all adventurer jobs and names
 SELECT 
     CONCAT(Adventurers.first_name, ' ', Adventurers.last_name) AS adventurer,
@@ -74,8 +93,6 @@ SELECT
 FROM Adventurer_Jobs
     JOIN Adventurers ON Adventurer_Jobs.adventurer_ID = Adventurers.adventurer_ID
     JOIN Jobs ON Jobs.job_ID = Adventurer_Jobs.job_ID;
-
-
 -- Get a single adventurer and all jobs
 SELECT adventurers.first_name,
     adventurers.last_name,
