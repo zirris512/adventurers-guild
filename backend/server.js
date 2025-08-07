@@ -1,14 +1,14 @@
 /*-- Citation for the following code: Nathaniel Dziuba
--- Date: 2025-08-05
+-- Date: 2025-08-05\2025-08-06
 -- Adapted from Exploration Web Application Technology.
 -- AI was used to help review the code for syntax errors after an initial implementation.
 -- Source URL: https://m365.cloud.microsoft
 -- If AI tools were used:
 -- AI assistance was used to confirm integrity of the code and ask clarifying questions. It was also used for troubleshooting
--- server issues where the server.js file was not being update properly on reload. */
+-- server issues where the server.js file was not being update properly on reload. Helped in troubleshooting how to insert the inputed variables from
+-- the user into the query using prepared statements. */
 // ########################################
 // ########## SETUP
-console.log("SERVER FILE LOADED FROM:", __filename);
 
 // Database
 const db = require('./database/db-connector');
@@ -24,7 +24,7 @@ app.use(cors({ credentials: true, origin: "*" }));
 app.use(express.json()); // this is needed for post requests
 
 
-const PORT = 50100;
+const PORT = 50101;
 
 // ########################################
 // ########## ROUTE HANDLERS
@@ -148,6 +148,32 @@ app.post('/dbReset', async (req, res) => {
         res.status(400).json({ "message": "RESET REQUEST FAILED." });
     }
 });
+
+// Add a new location.
+app.post('/locations', async (req, res) => {
+    const {
+        solar_system,
+        celestial_body_name,
+        target_latitude,
+        target_longitude
+    } = req.body;
+
+    const addLocationQuery = `CALL InsertLocation(?, ?, ?, ?)`;
+
+    try {
+    await db.query(addLocationQuery, [
+        solar_system,
+        celestial_body_name,
+        target_latitude,
+        target_longitude
+    ]);
+
+    res.status(201).json({ message: 'Location added successfully' });
+    } catch (error) {
+        console.error('Error inserting location:', error);
+        res.status(500).json({ error: 'Failed to add location' });
+    }
+    });
 
 // ########################################
 // ########## LISTENER

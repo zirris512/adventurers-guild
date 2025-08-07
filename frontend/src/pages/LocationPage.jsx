@@ -45,7 +45,7 @@ function LocationPage({backendURL}) {
         {showForm ? 'Hide Form' : 'Add New Location'}
         </button>
 
-        {showForm && <LocationForm />}
+        {showForm && <LocationForm backendURL = {backendURL} refreshLocations = {getData} />}
 
 
       <table>

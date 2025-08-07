@@ -1,6 +1,6 @@
 -- Citation for the following code: Nathaniel Dziuba
 -- Date: 2025-08-05
--- Adapted from gradescope assignments.
+-- Adapted from gradescope assignments and PL/SQL explorations.
 -- AI was used to help review the code for syntax errors after an initial implementation.
 -- Source URL: https://m365.cloud.microsoft
 -- If AI tools were used:
@@ -107,5 +107,30 @@ BEGIN
     (3, 3, TRUE, FALSE, NOW(), TRUE);
 
 END//
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE InsertLocation(
+    IN solar_system_input VARCHAR(250),
+    IN celestial_body_name_input VARCHAR(250),
+    IN target_latitude_input VARCHAR(50),
+    IN target_longitude_input VARCHAR(50)
+)
+BEGIN
+    INSERT INTO Locations (
+        solar_system,
+        celestial_body_name,
+        target_latitude,
+        target_longitude
+    )
+    VALUES (
+        solar_system_input,
+        celestial_body_name_input,
+        target_latitude_input,
+        target_longitude_input
+    );
+END //
 
 DELIMITER ;
