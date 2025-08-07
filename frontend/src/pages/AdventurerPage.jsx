@@ -42,8 +42,6 @@ function AdventurerPage({backendURL}) {
   return (
     <div>
       <h2>Adventurers</h2>
-      <p>CRUD Operations: Create</p>
-
       {/* Button Toggle for AdventurerForm to add a new adventurer. */}
       <button onClick={() => setShowForm(!showForm)}>
         {showForm ? 'Hide Form' : 'Add New Adventurer'}
