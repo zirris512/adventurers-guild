@@ -1,3 +1,7 @@
+/*-- Citation for the following code: Nathaniel Dziuba
+-- Date: 2025-08-05
+-- Adapted from Exploration web app technology.
+ */
 import React from 'react';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';

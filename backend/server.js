@@ -1,3 +1,11 @@
+/*-- Citation for the following code: Nathaniel Dziuba
+-- Date: 2025-08-05
+-- Adapted from Exploration Web Application Technology.
+-- AI was used to help review the code for syntax errors after an initial implementation.
+-- Source URL: https://m365.cloud.microsoft
+-- If AI tools were used:
+-- AI assistance was used to confirm integrity of the code and ask clarifying questions. It was also used for troubleshooting
+-- server issues where the server.js file was not being update properly on reload. */
 // ########################################
 // ########## SETUP
 console.log("SERVER FILE LOADED FROM:", __filename);
@@ -22,9 +30,6 @@ const PORT = 50100;
 // ########## ROUTE HANDLERS
 
 // READ ROUTES
-app.get('/test123', (req, res) => res.send('TEST123 route works'));
-
-app.get('/whoami', (req, res) => res.send('whoami OK'));
 // Job SELECT query, pull table data.
 app.get('/jobs', async (req, res) => {
     try{
