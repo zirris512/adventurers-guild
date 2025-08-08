@@ -2,11 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "main": "index.js",
-"scripts": {
+  "scripts": {
     "development": "nodemon server.js",
     "production": "npx forever start server.js",
     "stop_production": "npx forever stop server.js"
-},
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
