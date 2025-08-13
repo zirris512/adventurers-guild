@@ -4,7 +4,7 @@
 -- AI was used to help review the code for syntax errors after an initial implementation and for general referencing.
 -- Source URL: https://m365.cloud.microsoft
 -- If AI tools were used:
--- AI assistance was used to confirm integrity of the code and ask clarifying questions. 
+-- AI assistance was used to confirm integrity of the code and ask clarifying questions such as JS and React reference manual material. 
  */ 
 import React, { useState, useEffect } from 'react';
 import JobForm from '../components/JobForm.jsx';

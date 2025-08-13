@@ -1,10 +1,10 @@
 /*-- Citation for the following code: Nathaniel Dziuba
--- Date: 2025-08-05
+-- Date: 2025-08-05\2025-08-12
 -- Adapted from Exploration web app technology.
 -- AI was used to help review the code for syntax errors after an initial implementation and for general referencing.
 -- Source URL: https://m365.cloud.microsoft
 -- If AI tools were used:
--- AI assistance was used to confirm integrity of the code and ask clarifying questions. 
+-- AI assistance was used to confirm integrity of the code and ask clarifying questions when needed. 
  */  
 import React, {useState, useEffect} from 'react';
 

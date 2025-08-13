@@ -5,11 +5,12 @@
 -- It was also used to help generate the handleChange function due to issues in the initial setup. 
 -- Source URL: https://m365.cloud.microsoft
 -- If AI tools were used:
--- AI assistance was used to confirm integrity of the code and ask clarifying questions. It was also used to help build hadnelChange function
--- due to improper formatting and syntax. General assistance was asked for it to give hits as to what needed to be done. It also gave suggestions to
--- simplify the code for brevity.
+-- AI assistance was used to confirm integrity of the code and ask clarifying questions when needed. 
+-- It was also used to help build handlesubmit function due to improper formatting and syntax. 
+-- General assistance was asked for references to the react and JS manuals. It also gave suggestions to
+-- simplify the code for brevity like naming conventions.
  */ 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function JobEditForm({ backendURL, job, onClose, onUpdated }) {
   // Separate state for each field
@@ -20,6 +21,38 @@ function JobEditForm({ backendURL, job, onClose, onUpdated }) {
   const [jobStillOpen, setJobStillOpen] = useState(job.job_still_open);
   const [jobPointValue, setJobPointValue] = useState(job.job_point_value);
   const [completionPayout, setCompletionPayout] = useState(job.completion_payout);
+
+  //data from locations and ranks table.
+  const [locations, setLocations] = useState([]);
+  const [ranks, setRanks] = useState([]);
+  
+  //Get locations data.
+  useEffect(() => {
+    const getLocations = async () => {
+      try {
+        const res = await fetch(`${backendURL}/locations`);
+        const data = await res.json();
+        setLocations(data.allLocations);
+      } catch (error) {
+        console.error('Failed to get locations:', error);
+      }
+    };
+    getLocations();
+  }, [backendURL]);  
+  
+  //Get ranks data.
+  useEffect(() => {
+    const getRanks = async () => {
+      try {
+        const res = await fetch(`${backendURL}/ranks`);
+        const data = await res.json();
+        setRanks(data.allRanks);
+      } catch (error) {
+        console.error('Failed to get all ranks', error);
+      }
+    };
+    getRanks();
+  }, [backendURL]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -79,25 +112,34 @@ function JobEditForm({ backendURL, job, onClose, onUpdated }) {
 
         <label>
           Job Rank:
-          <input
-            type="text"
+          <select
             value={jobRank}
             onChange={(e) => setJobRank(e.target.value)}
-            placeholder="Rank"
             required
-          />
+          >
+            <option value="">-- Select a Rank --</option>
+            {ranks.map((rank) => (
+              <option key={rank.rank_ID} value={rank.rank_ID}>
+                {rank.rank_ID}
+              </option>
+            ))}
+          </select>
         </label>
         <br />
 
         <label>
           Job Location:
-          <input
-            type="number"
-            value={jobLocation}
-            onChange={(e) => setJobLocation(e.target.value)}
-            placeholder="Location ID"
-            required
-          />
+          <select
+          value={jobLocation}
+          onChange={(e) => setJobLocation(e.target.value)}
+          required>
+          <option value="">-- Select a location --</option>
+          {locations.map((loc) => (
+            <option key={loc.location_ID} value={loc.location_ID}>
+              {loc.celestial_body_name} ({loc.solar_system})
+            </option>
+          ))}
+        </select>
         </label>
         <br />
 
