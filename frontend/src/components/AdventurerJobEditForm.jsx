@@ -20,6 +20,7 @@ function AdventurerJobEditForm({
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+        // HTTP update request to the server
       const response = await fetch(backendURL + '/adventurerJobs', {
         method: 'PUT',
         headers: {

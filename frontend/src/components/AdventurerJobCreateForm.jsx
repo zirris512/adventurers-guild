@@ -13,6 +13,7 @@ function AdventurerJobCreateForm({
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // HTTP request to create an adventurer job
       const response = await fetch(backendURL + '/adventurerJobs', {
         method: 'POST',
         headers: {

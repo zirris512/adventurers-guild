@@ -56,13 +56,13 @@ function AdventurerJobPage({ backendURL }) {
       }
 
       try {
-        //Get reqeust for jobs query.
+        //Get reqeust for adventurers query.
         const response = await fetch(backendURL + '/adventurers');
 
         //Convert response into JSON format
         const { allAdvens } = await response.json();
 
-        //Update job state with response data.
+        //Update adventurer state with response data.
         setAllAdventurers(
           allAdvens.map((aa) => ({
             adventurer: aa.first_name + aa.last_name,
@@ -107,6 +107,7 @@ function AdventurerJobPage({ backendURL }) {
     }
   }, [paramId, getData, getOneAdventurerData]);
 
+  // Handler for the edit button for a row
   const handleEditSubmit = (adventurer_data) => {
     setSelectedIds({
       adventurer_ID: adventurer_data.adventurer_ID,
@@ -119,6 +120,7 @@ function AdventurerJobPage({ backendURL }) {
     setShowEditForm(true);
   };
 
+  // Handler for opening the delete modal
   const handleOpen = (adventurer_ID, job_ID) => {
     setSelectedIds({
       adventurer_ID,
@@ -127,7 +129,9 @@ function AdventurerJobPage({ backendURL }) {
     setShowConfirm(true);
   };
 
+  // Handler for closing the delete modal
   const handleClose = async (isConfirmed) => {
+    // Makes backend call if the confirm button is clicked
     if (isConfirmed) {
       try {
         const response = await fetch(backendURL + '/adventurerJobs', {
