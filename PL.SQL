@@ -1,7 +1,7 @@
 -- Citation for the following code: RESET_DB
 -- Date: 2025-08-05\2025-08-11
 -- Adapted from gradescope assignments and PL/SQL explorations.
--- AI was used to help review the code for syntax errors after an initial implementation.
+-- Assignments and exploration was used as a guide and reference. All work is original or used referencing.
 -- Source URL: https://m365.cloud.microsoft
 -- If AI tools were used:
 -- AI assistance was used to confirm integrity of the code and ask clarifying questions. The AI was used to rewrite the intial code I had generated
@@ -112,7 +112,7 @@ END //
 -- Citation for the following code: InsertLocation
 -- Date: 2025-08-05\2025-08-11
 -- Adapted from gradescope assignments and PL/SQL explorations.
--- AI was used to help review the code for syntax errors after an initial implementation.
+-- Assignments and exploration was used as a guide and reference. All work is original or used referencing.
 -- Source URL: https://m365.cloud.microsoft
 -- If AI tools were used:
 -- AI assistance was used to confirm integrity of the code and ask clarifying questions. 
@@ -141,7 +141,7 @@ END //
 -- Citation for the following code: AddJob
 -- Date:2025-08-11
 -- Adapted from gradescope assignments and PL/SQL explorations.
--- AI was used to help review the code for syntax errors after an initial implementation.
+-- Assignments and exploration was used as a guide and reference. All work is original or used referencing.
 -- Source URL: https://m365.cloud.microsoft
 -- If AI tools were used:
 -- AI assistance was used to confirm integrity of the code and ask clarifying questions.
@@ -182,7 +182,7 @@ END //
 -- Citation for the following code: UpdateJob
 -- Date:2025-08-11
 -- Adapted from gradescope assignments and PL/SQL explorations.
--- AI was used to help review the code for syntax errors after an initial implementation.
+-- Assignments and exploration was used as a guide and reference. All work is original or used referencing.
 -- Source URL: https://m365.cloud.microsoft
 -- If AI tools were used:
 -- AI assistance was used to confirm integrity of the code and ask clarifying questions.
@@ -214,7 +214,7 @@ END //
 -- Citation for the following code: AddAventurer
 -- Date: 2025-08-05\2025-08-11
 -- Adapted from gradescope assignments and PL/SQL explorations.
--- AI was used to help review the code for syntax errors after an initial implementation.
+-- Assignments and exploration was used as a guide and reference. All work is original or used referencing.
 -- Source URL: https://m365.cloud.microsoft
 -- If AI tools were used:
 -- AI assistance was used to confirm integrity of the code. AI was used to improve the clarity and performance of the code by asking it for
@@ -247,7 +247,7 @@ END //
 -- Citation for the following code: UpdateAdventurer
 -- Date: 2025-08-05\2025-08-11
 -- Adapted from gradescope assignments and PL/SQL explorations.
--- AI was used to help review the code for syntax errors after an initial implementation.
+-- Assignments and exploration was used as a guide and reference. All work is original or used referencing.
 -- Source URL: https://m365.cloud.microsoft
 -- If AI tools were used:
 -- AI assistance was used to confirm integrity of the code. AI was used to improve the clarity and performance of the code by asking it for
