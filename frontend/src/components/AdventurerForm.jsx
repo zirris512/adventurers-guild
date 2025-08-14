@@ -1,4 +1,4 @@
-/*-- Citation for the following code: Nathaniel Dziuba
+/*-- Citation for the following code: Adventurer Form
 -- Date: 2025-08-12
 -- Adapted from Exploration web app technology.
 -- AI was used to help review the code for syntax errors after an initial implementation and for general referencing.

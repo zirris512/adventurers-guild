@@ -1,4 +1,4 @@
-/*-- Citation for the following code: Nathaniel Dziuba
+/*-- Citation for the following code: Navigation
 -- Date: 2025-08-05
 -- Adapted from Exploration web app technology.
  */ 

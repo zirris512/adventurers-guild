@@ -1,4 +1,4 @@
-/*-- Citation for the following code: Nathaniel Dziuba
+/*-- Citation for the following code: Homepage
 -- Date: 2025-08-05
 -- Adapted from Exploration web app technology.
 -- AI was used to help review the code for syntax errors after an initial implementation. It was also used as a reference for javascript methods.

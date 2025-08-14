@@ -1,4 +1,4 @@
-/*-- Citation for the following code: Nathaniel Dziuba
+/*-- Citation for the following code: Locations Page
 -- Date: 2025-08-05
 -- Adapted from Exploration web app technology.
 -- AI was used to help review the code for syntax errors after an initial implementation and for general referencing.
