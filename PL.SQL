@@ -1,10 +1,11 @@
--- Citation for the following code: Nathaniel Dziuba
--- Date: 2025-08-05
+-- Citation for the following code: RESET_DB
+-- Date: 2025-08-05\2025-08-11
 -- Adapted from gradescope assignments and PL/SQL explorations.
 -- AI was used to help review the code for syntax errors after an initial implementation.
 -- Source URL: https://m365.cloud.microsoft
 -- If AI tools were used:
--- AI assistance was used to confirm integrity of the code and ask clarifying questions.
+-- AI assistance was used to confirm integrity of the code and ask clarifying questions. The AI was used to rewrite the intial code I had generated
+-- due to many syntax and structural errors. 
 
 DELIMITER //
 
@@ -106,12 +107,15 @@ BEGIN
     (2, 2, TRUE, FALSE, NOW(), TRUE),
     (3, 3, TRUE, FALSE, NOW(), TRUE);
 
-END//
+END //
 
-DELIMITER ;
-
-DELIMITER //
-
+-- Citation for the following code: InsertLocation
+-- Date: 2025-08-05\2025-08-11
+-- Adapted from gradescope assignments and PL/SQL explorations.
+-- AI was used to help review the code for syntax errors after an initial implementation.
+-- Source URL: https://m365.cloud.microsoft
+-- If AI tools were used:
+-- AI assistance was used to confirm integrity of the code and ask clarifying questions. 
 CREATE PROCEDURE InsertLocation(
     IN solar_system_input VARCHAR(250),
     IN celestial_body_name_input VARCHAR(250),
@@ -131,6 +135,142 @@ BEGIN
         target_latitude_input,
         target_longitude_input
     );
+END //
+
+
+-- Citation for the following code: AddJob
+-- Date:2025-08-11
+-- Adapted from gradescope assignments and PL/SQL explorations.
+-- AI was used to help review the code for syntax errors after an initial implementation.
+-- Source URL: https://m365.cloud.microsoft
+-- If AI tools were used:
+-- AI assistance was used to confirm integrity of the code and ask clarifying questions.
+CREATE PROCEDURE AddJob(
+    IN job_opener_first_name VARCHAR(100),
+    IN job_opener_last_name VARCHAR(100),
+    IN job_rank CHAR(1),
+    IN job_location INT,
+    IN job_still_open BOOLEAN,
+    IN job_point_value INT,
+    IN completion_payout VARCHAR(50)
+)
+BEGIN
+    INSERT INTO Jobs (
+        job_opener_first_name,
+        job_opener_last_name,
+        job_rank,
+        job_location,
+        job_still_open,
+        job_created_at,
+        j_last_update,
+        job_point_value,
+        completion_payout
+    )
+    VALUES (
+        job_opener_first_name,
+        job_opener_last_name,
+        job_rank,
+        job_location,
+        job_still_open,
+        NOW(),
+        NOW(),
+        job_point_value,
+        completion_payout
+    );
+END //
+
+-- Citation for the following code: UpdateJob
+-- Date:2025-08-11
+-- Adapted from gradescope assignments and PL/SQL explorations.
+-- AI was used to help review the code for syntax errors after an initial implementation.
+-- Source URL: https://m365.cloud.microsoft
+-- If AI tools were used:
+-- AI assistance was used to confirm integrity of the code and ask clarifying questions.
+CREATE PROCEDURE UpdateJob(
+    IN job_ID INT,
+    IN job_opener_first_name VARCHAR(100),
+    IN job_opener_last_name VARCHAR(100),
+    IN job_rank CHAR(1),
+    IN job_location INT,
+    IN job_still_open BOOLEAN,
+    IN job_point_value INT,
+    IN completion_payout VARCHAR(50)
+)
+BEGIN
+    UPDATE Jobs AS j
+    SET
+        j.job_opener_first_name = job_opener_first_name,
+        j.job_opener_last_name = job_opener_last_name,
+        j.job_rank = job_rank,
+        j.job_location = job_location,
+        j.job_still_open = job_still_open,
+        j.j_last_update = NOW(),
+        j.job_point_value = job_point_value,
+        j.completion_payout = completion_payout
+    WHERE j.job_ID = job_ID;
+
+END //
+
+-- Citation for the following code: AddAventurer
+-- Date: 2025-08-05\2025-08-11
+-- Adapted from gradescope assignments and PL/SQL explorations.
+-- AI was used to help review the code for syntax errors after an initial implementation.
+-- Source URL: https://m365.cloud.microsoft
+-- If AI tools were used:
+-- AI assistance was used to confirm integrity of the code. AI was used to improve the clarity and performance of the code by asking it for
+-- suggestions in how to improve the procedure for readability and functionality after the initial implementation failed.
+CREATE PROCEDURE AddAdventurer(
+    IN first_name VARCHAR(100),
+    IN last_name VARCHAR(100),
+    IN universal_telephone_number VARCHAR(50),
+    IN adventurer_rank CHAR(1),
+    IN adventurer_is_active BOOLEAN
+)
+BEGIN
+    INSERT INTO Adventurers (
+        first_name,
+        last_name,
+        universal_telephone_number,
+        adventurer_rank,
+        adventurer_is_active,
+        a_last_update
+    ) VALUES (
+        first_name,
+        last_name,
+        universal_telephone_number,
+        adventurer_rank,
+        adventurer_is_active,
+        NOW()
+    );
+END //
+
+-- Citation for the following code: UpdateAdventurer
+-- Date: 2025-08-05\2025-08-11
+-- Adapted from gradescope assignments and PL/SQL explorations.
+-- AI was used to help review the code for syntax errors after an initial implementation.
+-- Source URL: https://m365.cloud.microsoft
+-- If AI tools were used:
+-- AI assistance was used to confirm integrity of the code. AI was used to improve the clarity and performance of the code by asking it for
+-- suggestions in how to improve the procedure for readability and functionality after the initial implementation failed.
+CREATE PROCEDURE UpdateAdventurer(
+    IN adventurer_ID INT,
+    IN first_name VARCHAR(100),
+    IN last_name VARCHAR(100),
+    IN universal_telephone_number VARCHAR(50),
+    IN adventurer_rank CHAR(1),
+    IN adventurer_is_active BOOLEAN
+)
+BEGIN
+    UPDATE Adventurers AS a
+    SET
+        a.first_name = first_name,
+        a.last_name = last_name,
+        a.universal_telephone_number = universal_telephone_number,
+        a.adventurer_rank = adventurer_rank,
+        a.adventurer_is_active = adventurer_is_active,
+        a.a_last_update = NOW()
+    WHERE a.adventurer_ID = adventurer_ID;
+
 END //
 
 DELIMITER ;
