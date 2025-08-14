@@ -1,10 +1,10 @@
 /*-- Citation for the following code: LocationForm
 -- Date: 2025-08-05\2025-08-12
 -- Adapted from Exploration web app technology.
--- AI was used to help review the code for syntax errors after an initial implementation and for general referencing.
+-- Skeleton code was used as a base and all functions are original.
 -- Source URL: https://m365.cloud.microsoft
 -- If AI tools were used:
--- AI assistance was used to confirm integrity of the code and ask clarifying questions when needed. 
+-- AI assistance was used to confirm integrity of the code and ask clarifying questions when needed where it was used for referneicng for React and JS manual information. 
  */  
 import React, { useState } from 'react';
 
