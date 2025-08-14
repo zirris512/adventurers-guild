@@ -44,7 +44,7 @@ CREATE TABLE Jobs (
     job_point_value INT NOT NULL,
     completion_payout VARCHAR(50) NOT NULL COMMENT 'Min 20 units or equivalent',
     CONSTRAINT FK_Jobs_job_rank FOREIGN KEY (job_rank) REFERENCES Ranks(rank_ID),
-    CONSTRAINT FK_Jobs_job_location FOREIGN KEY (job_location) REFERENCES Locations(location_ID)
+    CONSTRAINT FK_Jobs_job_location FOREIGN KEY (job_location) REFERENCES Locations(location_ID) ON DELETE CASCADE
 );
 
  -- Table: Adventurer_Jobs (Intersection Table)

@@ -1,5 +1,5 @@
 /*-- Citation for the following code: Nathaniel Dziuba
--- Date: 2025-08-05\2025-08-06
+-- Date: 2025-08-05\2025-08-06\2025-08-11
 -- Adapted from Exploration Web Application Technology.
 -- AI was used to help review the code for syntax errors after an initial implementation.
 -- Source URL: https://m365.cloud.microsoft
@@ -24,7 +24,7 @@ app.use(cors({ credentials: true, origin: "*" }));
 app.use(express.json()); // this is needed for post requests
 
 
-const PORT = 50101;
+const PORT = 50102;
 
 // ########################################
 // ########## ROUTE HANDLERS
@@ -35,7 +35,20 @@ app.get('/jobs', async (req, res) => {
     try{
         //Create and execute job SELECT query for general page population.
         
-        const jobsQuery = 'SELECT * FROM Jobs;';
+        const jobsQuery = `SELECT 
+                    j.job_ID,
+                    j.job_opener_first_name,
+                    j.job_opener_last_name,
+                    j.job_rank,
+                    j.job_location,
+                    CONCAT(l.solar_system, ' (', l.celestial_body_name, ')') AS job_location_name,
+                    j.job_still_open,
+                    j.job_created_at,
+                    j.j_last_update,
+                    j.job_point_value,
+                    j.completion_payout
+                FROM Jobs j
+                JOIN Locations l ON j.job_location = l.location_ID;`;
         const [allJobs] = await db.query(jobsQuery);
 
         // Send results to frontend.
@@ -67,7 +80,6 @@ app.get('/locations', async (req, res) => {
 });
 
 // Rank SELECT query, pull table data.
-
 app.get('/ranks', async (req,res)=>{
     try{
         //Create and execute job SELECT query for general page population.
@@ -90,7 +102,31 @@ app.get('/adventurers', async (req,res)=>{
     try{
         //Create and execute job SELECT query for general page population.
         
-        const advenQuery = 'SELECT * FROM Adventurers;'; 
+        const advenQuery = `
+                    SELECT 
+                a.adventurer_ID,
+                a.first_name,
+                a.last_name,
+                a.universal_telephone_number,
+                a.adventurer_rank,
+                a.adventurer_is_active,
+                a.a_last_update,
+                COALESCE(SUM(j.job_point_value), 0) AS total_points
+            FROM Adventurers a
+            LEFT JOIN Adventurer_Jobs aj 
+                ON a.adventurer_ID = aj.adventurer_ID 
+                AND aj.adventurer_completed_job = TRUE
+            LEFT JOIN Jobs j 
+                ON aj.job_ID = j.job_ID
+            GROUP BY 
+                a.adventurer_ID,
+                a.first_name,
+                a.last_name,
+                a.universal_telephone_number,
+                a.adventurer_rank,
+                a.adventurer_is_active,
+                a.a_last_update
+            ORDER BY total_points DESC;`; 
         const [allAdvens] = await db.query(advenQuery);
 
         // Send results to frontend.
@@ -174,6 +210,184 @@ app.post('/locations', async (req, res) => {
         res.status(500).json({ error: 'Failed to add location' });
     }
     });
+
+//Update a Job.
+app.put('/jobs/:id', async (req, res) => {
+  const jobId = parseInt(req.params.id, 10);
+
+    const {
+        job_opener_first_name,
+        job_opener_last_name,
+        job_rank,
+        job_location,
+        job_still_open,
+        job_point_value,
+        completion_payout
+    } = req.body;
+
+  try {
+    const [result] = await db.query(
+      'CALL UpdateJob(?, ?, ?, ?, ?, ?, ?, ?)',
+        [
+            jobId,
+            job_opener_first_name,
+            job_opener_last_name,
+            job_rank,
+            job_location,
+            job_still_open,
+            job_point_value,
+            completion_payout
+        ]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Job not found' });
+    }
+
+    res.status(200).json({ message: 'Job updated successfully' });
+  } catch (error) {
+    console.error("Error updating job:", error);
+    res.status(500).send("An error occurred while updating the job.");
+  }
+});
+
+// Delete a Job.
+app.delete('/jobs/:id', async (req, res) => {
+    const jobId = req.params.id;
+
+    const deleteJobQuery = `DELETE FROM Jobs WHERE job_ID = ?;`;
+
+    try {
+        const [result] = await db.query(deleteJobQuery, [jobId]);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: 'Job not found' });
+        }
+
+        res.status(200).json({ message: 'Job deleted successfully' });
+    } catch (error) {
+        console.error("Error deleting job:", error);
+        res.status(500).send("An error occurred while deleting the job.");
+    }
+});
+// Add a Job.
+app.post('/jobs', async (req, res) => {
+    const {
+        job_opener_first_name,
+        job_opener_last_name,
+        job_rank,
+        job_location,
+        job_still_open,
+        job_point_value,
+        completion_payout
+    } = req.body;
+
+  try {
+    // Call stored procedure
+    const [result] = await db.query(
+      'CALL AddJob(?, ?, ?, ?, ?, ?, ?)',
+        [
+            job_opener_first_name,
+            job_opener_last_name,
+            job_rank,
+            job_location,
+            job_still_open,
+            job_point_value,
+            completion_payout,
+        ]
+    );
+
+    res.status(201).json({ message: 'Job created' });
+  } catch (error) {
+    console.error('Error creating job:', error);
+    res.status(500).send('Error creating job');
+  }
+});
+
+// Delete a Location.
+app.delete('/locations/:id', async (req, res) => {
+    const locationId = req.params.id;
+
+    const deleteLocationQuery = `DELETE FROM Locations WHERE location_ID = ?;`;
+
+    try {
+        const [result] = await db.query(deleteLocationQuery, [locationId]);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: 'Location not found' });
+        }
+
+        res.status(200).json({ message: 'Location deleted successfully' });
+    } catch (error) {
+        console.error("Error deleting location:", error);
+        res.status(500).send("An error occurred while deleting the location.");
+    }
+});
+
+//New Adventurer Insert
+app.post('/adventurers', async (req, res) => {
+    const {
+        first_name,
+        last_name,
+        universal_telephone_number,
+        adventurer_rank,
+        adventurer_is_active
+    } = req.body;
+
+    //Call stored procedure
+    try{
+        const [result] = await db.query(`CALL AddAdventurer(?, ?, ? , ? , ?)`,
+        [
+            first_name,
+            last_name,
+            universal_telephone_number,
+            adventurer_rank,
+            adventurer_is_active
+        ]
+    );
+
+    res.status(201).json({message:'Adventurer Added'});
+    } catch (error) {
+        console.error('Error creating new Adventurer', error);
+        res.status(500).send('Error creating new adventurer');
+    }
+});
+
+// Update an Adventurer
+app.put('/adventurers/:id', async (req, res) => {
+  const adventurerId = parseInt(req.params.id, 10);
+
+    const {
+        first_name,
+        last_name,
+        universal_telephone_number,
+        adventurer_rank,
+        adventurer_is_active
+    } = req.body;
+
+  try {
+    const [result] = await db.query(
+      'CALL UpdateAdventurer(?, ?, ?, ?, ?, ?)',
+        [
+            adventurerId,
+            first_name,
+            last_name,
+            universal_telephone_number,
+            adventurer_rank,
+            adventurer_is_active
+        ]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Adventurer not found' });
+    }
+
+    res.status(200).json({ message: 'Adventurer updated successfully' });
+  } catch (error) {
+    console.error("Error updating adventurer:", error);
+    res.status(500).send("An error occurred while updating the adventurer.");
+  }
+});
 
 // ########################################
 // ########## LISTENER
