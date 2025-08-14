@@ -1,4 +1,4 @@
-/*-- Citation for the following code: Nathaniel Dziuba
+/*-- Citation for the following code: Homepage
 -- Date: 2025-08-05
 -- Adapted from Exploration web app technology.
 -- AI was used to help review the code for syntax errors after an initial implementation. It was also used as a reference for javascript methods.
@@ -60,6 +60,13 @@ import React, {useEffect, useState} from 'react';
         <>
             <h2>Home Page</h2>
             <h2> Todays Date: {currentDate} </h2>
+            <h2 class="homepage-page-title"> Job Board Page Descriptions</h2>
+              <h3>Homepage: Page descriptions and location of database reset button.</h3>
+              <h3>Adventurers Page: Record of adventurer's information.</h3>
+              <h3>Active Adventurer's Jobs: Record of jobs accepted by adventurer's and thier outcomes.</h3>
+              <h3>Jobs Page: Record of all jobs posted to the Guild.</h3>
+              <h3> Ranks Page: All available ranks at this Guild and their point threshold. </h3>
+              <h3>Locations Page: Record of all job site locations.</h3>
             <button onClick={handleOpen}>Reset Database</button>
             <ResetConfirm
               isOpen={showConfirm}
