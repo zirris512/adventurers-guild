@@ -1,7 +1,7 @@
 /*-- Citation for the following code: Nathaniel Dziuba
 -- Date: 2025-08-05\2025-08-06\2025-08-11
 -- Adapted from Exploration Web Application Technology.
--- AI was used to help review the code for syntax errors after an initial implementation.
+-- Skeleton code was used as a base and all functions are original.
 -- Source URL: https://m365.cloud.microsoft
 -- If AI tools were used:
 -- AI assistance was used to confirm integrity of the code and ask clarifying questions. It was also used for troubleshooting

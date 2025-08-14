@@ -1,7 +1,7 @@
 /*-- Citation for the following code: Locations Page
 -- Date: 2025-08-05
 -- Adapted from Exploration web app technology.
--- AI was used to help review the code for syntax errors after an initial implementation and for general referencing.
+-- Skeleton code was used as a base and all functions are original.
 -- Source URL: https://m365.cloud.microsoft
 -- If AI tools were used:
 -- AI assistance was used to confirm integrity of the code and ask clarifying questions such as JS and React reference manual material. 

@@ -1,6 +1,7 @@
 /*-- Citation for the following code: Navigation
 -- Date: 2025-08-05
 -- Adapted from Exploration web app technology.
+-- Skeleton code was used as a base and all functions and inputs are original.
  */ 
 import React from 'react';
 import { Link } from 'react-router-dom';

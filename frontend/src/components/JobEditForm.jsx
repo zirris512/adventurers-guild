@@ -1,8 +1,7 @@
 /*-- Citation for the following code: JobEditForm
 -- Date: 2025-08-11
 -- Adapted from Exploration web app technology.
--- AI was used to help review the code for syntax errors after an initial implementation and for general referencing.
--- It was also used to help generate the handleChange function due to issues in the initial setup. 
+-- Skeleton code was used as a base and all functions are original except for the handleSubmit which used AI.
 -- Source URL: https://m365.cloud.microsoft
 -- If AI tools were used:
 -- AI assistance was used to confirm integrity of the code and ask clarifying questions when needed. 
