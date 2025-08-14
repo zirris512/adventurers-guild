@@ -58,7 +58,7 @@
   background-color: #220b38;
   border-radius: 4px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  color: #5397e4;
+  color: #b6d8ff;
 }
 body {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -74,6 +74,10 @@ select {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   border: 2px solid#f2ac62;
   color: rgb(178, 209, 235);
+}
+
+table {
+margin: 0 auto;
 }
 
 th,
@@ -93,6 +97,14 @@ th {
   background-color: rgb(178, 209, 235);
 }
 
+h3 {
+  text-align: left;
+}
+
+.homepage-page-title {
+  text-align: left;
+  text-decoration: underline;
+}
 /* src/components/Modal.css */
 
 .overlay {

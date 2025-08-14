@@ -67,6 +67,7 @@ function AdventurerPage({backendURL}) {
             <th>Rank</th>
             <th>Active?</th>
             <th>Last Update</th>
+            <th>Total Points</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -79,6 +80,7 @@ function AdventurerPage({backendURL}) {
               <td>{a.adventurer_rank}</td>
               <td>{a.adventurer_is_active ? 'Yes' : 'No'}</td>
               <td>{new Date(a.a_last_update).toLocaleString()}</td>
+              <td>{a.total_points}</td>
               <td>
                 <button onClick={() => navigate(`/adventurerJob/${a.adventurer_ID}`)}>View All Jobs</button>{' '}
                 <button onClick={()=> setEditAdventurer(a)}>Edit</button>

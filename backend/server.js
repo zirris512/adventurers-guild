@@ -102,7 +102,31 @@ app.get('/adventurers', async (req,res)=>{
     try{
         //Create and execute job SELECT query for general page population.
         
-        const advenQuery = 'SELECT * FROM Adventurers;'; 
+        const advenQuery = `
+                    SELECT 
+                a.adventurer_ID,
+                a.first_name,
+                a.last_name,
+                a.universal_telephone_number,
+                a.adventurer_rank,
+                a.adventurer_is_active,
+                a.a_last_update,
+                COALESCE(SUM(j.job_point_value), 0) AS total_points
+            FROM Adventurers a
+            LEFT JOIN Adventurer_Jobs aj 
+                ON a.adventurer_ID = aj.adventurer_ID 
+                AND aj.adventurer_completed_job = TRUE
+            LEFT JOIN Jobs j 
+                ON aj.job_ID = j.job_ID
+            GROUP BY 
+                a.adventurer_ID,
+                a.first_name,
+                a.last_name,
+                a.universal_telephone_number,
+                a.adventurer_rank,
+                a.adventurer_is_active,
+                a.a_last_update
+            ORDER BY total_points DESC;`; 
         const [allAdvens] = await db.query(advenQuery);
 
         // Send results to frontend.
